@@ -1,6 +1,6 @@
-import redis, json
+#import redis, json
 from ib_insync import *
-import asyncio, time, random
+import json, asyncio, time, random
 
 # connect to Interactive Brokers 
 ib = IB()
