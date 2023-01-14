@@ -63,7 +63,7 @@ def webhook():
 #            "action": data_dict['strategy']['order_action'],
 #            "contracts": data_dict['strategy']['order_contracts'],
 #            "price": data_dict['strategy']['order_price']
-        }
+#        }
 
     return {
         "code": "success"
