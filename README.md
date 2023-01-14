@@ -16,7 +16,13 @@ export FLASK_APP="startup:app"
 export FLASK_ENV=development
 flask run
 ```
+python3 -m pip freeze > requirements.txt
 
 create startup.py in app root folder
 
 go to run and debug -> create a launch.json file
+
+we will need to do the same for azure app 
+app configuration -> general settings -> startup command
+gunicorn --bind=0.0.0.0 --timeout 600  startup:app --> save to restart the app
+
