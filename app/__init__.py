@@ -1,14 +1,4 @@
 # this is the main app to load
-""""
-from flask import Flask, render_template
-
-app = Flask(__name__)
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-"""
-
 import redis, sqlite3, time
 from flask import Flask, render_template, request, g, current_app
 

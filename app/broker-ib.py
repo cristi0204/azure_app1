@@ -29,4 +29,4 @@ async def run_periodically(interval, periodic_function):
 
 asyncio.run(run_periodically(1, check_messages))
 
-ib.run()
+# ib.run()
