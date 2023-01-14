@@ -2,3 +2,5 @@ Faker
 Flask==2.0.0
 gunicorn
 ib_insync
+websocket-client==1.4.1
+openpyxl==3.0.10

@@ -5,7 +5,7 @@ github search: xtb api filter python
 https://github.com/Saitama298/Python-XTB-API
 https://github.com/grimme-lab/xtb-python
 https://github.com/federico123579/XTBApi
-
+https://pypi.org/project/XTBApi/
 
 
 pip install websocket-client==1.4.1
@@ -22,4 +22,5 @@ API.logout()
 ////////////////
 
 
-
+14255925
+P@rola123
