@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, g, current_app
 
 app = Flask(__name__)
 
-r = redis.Redis(host='localhost', port=6379, db=0)
+# r = redis.Redis(host='localhost', port=6379, db=0)
 
 conn = sqlite3.connect('trade.db')
 cursor = conn.cursor()
@@ -42,7 +42,7 @@ def webhook():
     data = request.data
 
     if data:
-        r.publish('tradingview', data)
+#        r.publish('tradingview', data)
 
         data_dict = request.json
 
@@ -57,8 +57,13 @@ def webhook():
                 data_dict['strategy']['order_price']))
 
         db.commit()
-
-        return data
+        #return data
+        return {
+            "symbol": data_dict['ticker'],
+            "action": data_dict['strategy']['order_action'],
+            "contracts": data_dict['strategy']['order_contracts'],
+            "price": data_dict['strategy']['order_price']
+        }
 
     return {
         "code": "success"
