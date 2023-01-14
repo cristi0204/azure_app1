@@ -1,5 +1,5 @@
 # this is the main app to load
-import redis, sqlite3, time
+import sqlite3, time
 from flask import Flask, render_template, request, g, current_app
 
 app = Flask(__name__)
