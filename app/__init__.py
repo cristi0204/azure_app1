@@ -57,12 +57,12 @@ def webhook():
                 data_dict['strategy']['order_price']))
 
         db.commit()
-        #return data
-        return {
-            "symbol": data_dict['ticker'],
-            "action": data_dict['strategy']['order_action'],
-            "contracts": data_dict['strategy']['order_contracts'],
-            "price": data_dict['strategy']['order_price']
+        return data
+#        return {
+#            "symbol": data_dict['ticker'],
+#            "action": data_dict['strategy']['order_action'],
+#            "contracts": data_dict['strategy']['order_contracts'],
+#            "price": data_dict['strategy']['order_price']
         }
 
     return {
