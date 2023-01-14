@@ -2,4 +2,4 @@ Faker
 Flask==2.0.0
 gunicorn
 redis
-
+ib_insync
