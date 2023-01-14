@@ -2,5 +2,15 @@
 .venv/
 __pycache__/
 .vscode/
-trade.db
-azure_app1.code-workspace
+
+### databases
+*.db
+
+### vscode workspaces
+*.code-workspace
+
+### Logs
+*.log*
+
+### other files
+.DS_Store
