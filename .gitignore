@@ -4,7 +4,7 @@ __pycache__/
 .vscode/
 
 ### databases
-*.db
+trade.db
 
 ### vscode workspaces
 *.code-workspace
