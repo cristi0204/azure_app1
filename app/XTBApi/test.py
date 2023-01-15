@@ -1,4 +1,4 @@
-from XTBApi.api import Client
+from api import Client
 # FIRST INIT THE CLIENT
 client = Client()
 # THEN LOGIN

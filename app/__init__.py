@@ -1,11 +1,32 @@
 # this is the main app to load
-import sqlite3, time
-from flask import Flask, render_template, request, g, current_app
+import json, config, sqlite3, time
+from flask import Flask, request, jsonify, render_template, g, current_app
 
 app = Flask(__name__)
 
+#///////  XTB     //////
+#from XTBApi.api import Client as XTBApiClient
+
+#//////    Binance client ///////////////////////
+from binance.client import Client as BinanceClient
+from binance.enums import *
+
+BinanceClient = BinanceClient(config.BINANCE_API_KEY, config.BINANCE_API_SECRET)
+
+def BinanceOrder(side, quantity, symbol, order_type=ORDER_TYPE_MARKET):
+    try:
+        print(f"sending order {order_type} - {side} {quantity} {symbol}")
+        order = BinanceClient.create_order(symbol=symbol, side=side, type=order_type, quantity=quantity)
+    except Exception as e:
+        print("an exception occured - {}".format(e))
+        return False
+
+    return order
+
+
 # r = redis.Redis(host='localhost', port=6379, db=0)
 
+###########  sqlite3   ########
 conn = sqlite3.connect('trade.db')
 cursor = conn.cursor()
 cursor.execute("""
@@ -14,7 +35,10 @@ cursor.execute("""
         ticker,
         order_action,
         order_contracts,
-        order_price
+        order_price,
+        broker,
+        transactionID,
+        orderStatus
     )
 """)
 conn.commit()
@@ -26,6 +50,8 @@ def get_db():
 
     return g.db
 
+
+###########  Index Page   ########
 @app.get('/')
 def dashboard():
     db = get_db()
@@ -37,6 +63,7 @@ def dashboard():
 
     return render_template('dashboard.html', signals=signals)
 
+###########  Sample Webhook   ########
 @app.post("/webhook")
 def webhook():
     data = request.data
@@ -68,3 +95,35 @@ def webhook():
     return {
         "code": "success"
     }
+
+###########  Binance Webhook   ########
+@app.route('/binance', methods=['POST'])
+def BinanceWebhook():
+    #print(request.data)
+    data = json.loads(request.data)
+    
+    if data['passphrase'] != config.BINANCE_WEBHOOK_PASSPHRASE:
+        return {
+            "code": "error",
+            "message": "Nice try, invalid passphrase"
+        }
+
+    side = data['strategy']['order_action'].upper()
+    quantity = data['strategy']['order_contracts']
+    symbol = data['ticker']
+    order_response = BinanceOrder(side, quantity, symbol)
+
+    if order_response:
+        return {
+            "code": "success",
+            "message": "order executed"
+        }
+    else:
+        print("order failed")
+
+        return {
+            "code": "error",
+            "message": "order failed"
+        }
+    #print(request.data)
+    # print(f"sending order {order_type} - {side} {quantity} {symbol}")
