@@ -1,4 +1,5 @@
-from XTBApi.api import Client as XTBClient
+# not working at this level, need to update init and api with app prefix
+from app.XTBApi.api import Client as XTBClient
 # FIRST INIT THE CLIENT
 XTBclient = XTBClient()
 # THEN LOGIN
@@ -22,4 +23,11 @@ for trade in trade_ids:
 XTBclient.logout()
 
 #    def trade_transaction(self, symbol, mode, trans_type, volume, stop_loss=0,
-#                          take_profit=0, **kwargs):
+#
+#                           take_profit=0, **kwargs):
+"""
+XTBclient = XTBClient()
+XTBclient.login("14255925", "P@rola123", mode="demo")
+XTBclient.check_if_market_open("ETHEREUM")
+XTBclient.logout()
+"""

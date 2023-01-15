@@ -1,0 +1,97 @@
+("getTrades", {"openedOnly":True})
+
+Received: 
+{
+    'status': True, 
+    'returnData': [
+        {
+            'cmd': 1, 
+            'order': 461016295, 
+            'digits': 3, 
+            'offset': 0, 
+            'order2': 461016394, 
+            'position': 461016295, 
+            'symbol': 'ETHEREUM', 
+            'comment': '', 
+            'customComment': None, 
+            'commission': 0.0, 
+            'storage': -1.96, 
+            'margin_rate': 0.0, 
+            'close_price': 1543.374, 
+            'open_price': 1531.626, 
+            'nominalValue': 0.0, 
+            'profit': -53.68, 
+            'volume': 1.0, 
+            'sl': 0.0, 
+            'tp': 0.0, 
+            'closed': False, 
+            'timestamp': 1673806037357, 
+            'spread': 0, 
+            'taxes': 0.0, 
+            'open_time': 1673729348137, 
+            'open_timeString': 'Sat Jan 14 21:49:08 CET 2023', 
+            'close_time': None, 
+            'close_timeString': None, 
+            'expiration': None, 
+            'expirationString': None
+        }]
+    }
+
+
+("getSymbol", {"symbol":symbol})
+Received: 
+{
+    'status': True, 
+    'returnData': 
+        {
+            'symbol': 'NATGAS', 
+            'currency': 'USD', 
+            'categoryName': 'CMD', 
+            'currencyProfit': 'USD', 
+            'quoteId': 5, 
+            'quoteIdCross': 4, 
+            'marginMode': 102, 
+            'profitMode': 6, 
+            'pipsPrecision': 0, 
+            'contractSize': 30000, 
+            'exemode': 1, 
+            'time': 1673643599525, 
+            'expiration': None, 
+            'stopsLevel': 0, 
+            'precision': 3, 
+            'swapType': 3, 
+            'stepRuleId': 4, 
+            'type': 954, 
+            'instantMaxVolume': 2147483647, 
+            'groupName': 'Energy', 
+            'description': 'Instument CFD which price is based on quotations of the futures contract for Henry Hub Natural Gas quoted on NYMEX exchange.', 
+            'longOnly': False, 
+            'trailingEnabled': True, 
+            'marginHedgedStrong': False, 
+            'swapEnable': True, 
+            'percentage': 100.0, 
+            'bid': 3.465, 
+            'ask': 3.481, 
+            'high': 3.754, 
+            'low': 3.372, 
+            'lotMin': 0.01, 
+            'lotMax': 100.0, 
+            'lotStep': 0.01, 
+            'tickSize': 0.001, 
+            'tickValue': 30.0, 
+            'swapLong': -0.024713, 
+            'swapShort': -0.000287, 
+            'leverage': 10.0, 
+            'spreadRaw': 0.016, 
+            'spreadTable': 0.016, 
+            'starting': None, 
+            'swap_rollover3days': 0, 
+            'marginMaintenance': 0, 
+            'marginHedged': 0, 
+            'initialMargin': 0, 
+            'timeString': 'Fri Jan 13 21:59:59 CET 2023', 
+            'shortSelling': True, 
+            'currencyPair': False
+        }
+            
+}

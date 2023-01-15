@@ -1,7 +1,7 @@
 import logging.config
 import os.path
 
-from XTBApi.__version__ import __version__
+from app.XTBApi.__version__ import __version__
 
 logging.config.dictConfig({
     'version': 1,
