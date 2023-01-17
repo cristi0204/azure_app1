@@ -2,8 +2,8 @@
 import json, config, sqlite3, time
 from flask import Flask, request, jsonify, render_template, g, current_app
 #from app.XTBApi.api import Client as XTBApiClient
-#from xapiconnector import *
-from pyXTB import trader
+from xapiconnector import *
+from pyXTB_xtbapi import trader
 
 app = Flask(__name__)
 
@@ -130,50 +130,85 @@ def BinanceWebhook():
     #print(request.data)
     # print(f"sending order {order_type} - {side} {quantity} {symbol}")
 ###########  XTB Status   ########
-@app.route('/xtbstatus', methods=['POST'])
+@app.get('/xtbstatus')
 def xtbstatus():
     pyxtb = trader()
-    pyxtb.login(id=config.XTB_USER_ID,password=config.XTB_USER_PASS)
-    return pyxtb._opened_trades
-    #result = json.loads(pyxtb.get_opened_trades())
-    #return result['returnData']['message']
-    #print (pyxtb)
-    #return pyxtb._balance #'1' #render_template('dashboard.html', signals=signals)
-
+    pyxtb.xtblogin(config.XTB_USER_ID,config.XTB_USER_PASS)
+    return #render_template('dashboard.html', signals=signals)
 ###########  XTB Status   ########
-@app.route('/xtborders', methods=['POST'])
+@app.route('/xtborder', methods=['POST'])
 def xtborder():
-    data = json.loads(request.data)
-    pyxtb = trader()
-    pyxtb.login(id=config.XTB_USER_ID,password=config.XTB_USER_PASS)    
+    return
 
+
+###########  XTB Webhook   ########
+@app.route('/xtb', methods=['POST'])
+def XTBWebhook():
+    data = json.loads(request.data)   
     if data['passphrase'] != config.XTB_WEBHOOK_PASSPHRASE:
         return {
             "code": "error",
-            "message": "Invalid peer"
+            "message": "Not Authorized"
         }
 
-    symbol = data['ticker']
     side = data['strategy']['order_action'].upper()
-    order_action = data['strategy']['order_action'].upper()
-    position = data['strategy']['market_position']
     quantity = data['strategy']['order_contracts']
-    tp = data['strategy']['tp']
-    sl = data['strategy']['sl']
-    #print (order_action)
-    if order_action == "BUY":
-        xtborder = pyxtb.buy_symbol(symbol,quantity) #,tp,sl) 
-        #result = json.loads(buyorder)
-        # return
-        #print (buyorder)
-    elif order_action == "SELL":
-        xtborder = pyxtb.sell_symbol(symbol,quantity,tp,sl)
-        # return
-    elif order_action: 
-        xtborder = pyxtb.close_all_symbol(symbol)
-        #print (closeorder)
+    symbol = data['ticker']
+    XTBclient = APIClient()
+    # connect to RR socket, login
+    loginResponse = XTBclient.execute(loginCommand(userId=config.XTB_USER_ID, password=config.XTB_USER_PASS))
+    logger.info(str(loginResponse)) 
+    if(loginResponse['status'] == False):
+        print('Login failed. Error code: {0}'.format(loginResponse['errorCode']))
         return
-    return xtborder
-    #print(request.data)
-    # print(f"sending order {order_type} - {side} {quantity} {symbol}")
+    # get ssId from login response
+    ssid = loginResponse['streamSessionId']
+    # second method of invoking commands
+    #resp = XTBclient.commandExecute('getAllSymbols')
+    #resp = XTBclient.commandExecute('getCurrentUserData')
+    resp = XTBclient.commandExecute("getTrades", {"openedOnly":True})
+    #resp = XTBclient.commandExecute("getSymbol", {"symbol":symbol})
+    #sclient = APIStreamClient(ssId=ssid, tickFun=procTickExample, tradeFun=procTradeExample, profitFun=procProfitExample, tradeStatusFun=procTradeStatusExample)
+    #sclient.subscribeTrades()
+    #sclient.subscribePrices(['EURUSD', 'EURGBP', 'EURJPY'])
+    #sclient.subscribeProfits()
+    #time.sleep(5)
+    # gracefully close streaming socket
+    #sclient.disconnect()
 
+    # print(request.data)
+    # CHECK IF MARKET IS OPEN FOR EURUSD
+    # order_response = XTBclient.check_if_market_open(symbol)
+    #XTBclient.get_all_symbols()
+    # BUY ONE VOLUME (FOR EURUSD THAT CORRESPONDS TO 100000 units)
+    #order_response = XTBclient.open_trade(side, symbol, quantity)
+    # SEE IF ACTUAL GAIN IS ABOVE 100 THEN CLOSE THE TRADE
+    #trades = XTBclient.update_trades() # GET CURRENT TRADES
+    # order_response = XTBclient.update_trades() # GET CURRENT TRADES
+    #trade_ids = [trade_id for trade_id in trades.keys()]
+    #for trade in trade_ids:
+    #    actual_profit = XTBclient.get_trade_profit(trade) # CHECK PROFIT
+    #    if actual_profit >= 100:
+    #        client.close_trade(trade) # CLOSE TRADE
+    ## CLOSE ALL OPEN TRADES
+    #XTBclient.close_all_trades()
+    # THEN LOGOUT
+    XTBclient.disconnect()
+    print(request.data)
+ 
+    if resp:
+        return {
+            "code": "success",
+            "message": "order executed"
+        }
+    else:
+        print("order failed")
+
+        return {
+            "code": "error",
+            "message": "order failed"
+        }
+    # THEN LOGOUT
+    #XTBclient.logout()
+    
+    # print(f"sending order {order_type} - {side} {quantity} {symbol}")
