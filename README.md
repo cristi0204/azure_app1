@@ -65,3 +65,10 @@ https://github.com/TreborNamor/TradingView-Machine-Learning-GUI
 tw alerts tool
 
 https://github.com/alleyway/add-tradingview-alerts-tool
+
+#####. XTB
+https://github.com/OlafSk/pyXTB
+https://github.com/federico123579/XTBApi
+https://github.com/Saitama298/Python-XTB-API
+https://github.com/tuxskar/PyXTBClient
+
