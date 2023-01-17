@@ -163,17 +163,23 @@ def xtborder():
     #print (order_action)
     if order_action == "BUY":
         xtborder = pyxtb.buy_symbol(symbol,quantity) #,tp,sl) 
-        #result = json.loads(buyorder)
-        # return
-        #print (buyorder)
+        #result = json.loads(xtborder)
+        #print (xtborder)
+        return xtborder
+        
     elif order_action == "SELL":
         xtborder = pyxtb.sell_symbol(symbol,quantity,tp,sl)
-        # return
+        #result = json.loads(xtborder)
+        return xtborder
     elif order_action: 
         xtborder = pyxtb.close_all_symbol(symbol)
+        #result = json.loads(xtborder)
         #print (closeorder)
-        return
-    return xtborder
+        #return #result['returndata']['order']
+        if not xtborder:
+            return ' XTB Order No trades to close'
+        return xtborder
+    return 'OK'
     #print(request.data)
     # print(f"sending order {order_type} - {side} {quantity} {symbol}")
 

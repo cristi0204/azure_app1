@@ -72,3 +72,52 @@ https://github.com/federico123579/XTBApi
 https://github.com/Saitama298/Python-XTB-API
 https://github.com/tuxskar/PyXTBClient
 
+//////////
+
+/Alert message content for 3commas
+ADAPERP_long_bot_start      = "{  \"action\": \"start_bot_and_start_deal\",  \"message_type\": \"bot\",  \"bot_id\": 7919106,  \"email_token\": \"d22045a7-624e-40c2-97c5-b8bb40c069c1\",  \"delay_seconds\": 0}"
+ADAPERP_long_bot_stop       = "{  \"action\": \"close_at_market_price_all_and_stop_bot\",  \"message_type\": \"bot\",  \"bot_id\": 7919106,  \"email_token\": \"d22045a7-624e-40c2-97c5-b8bb40c069c1\",  \"delay_seconds\": 0}"
+ADAPERP_short_bot_start     = "{  \"action\": \"start_bot_and_start_deal\",  \"message_type\": \"bot\",  \"bot_id\": 7919140,  \"email_token\": \"d22045a7-624e-40c2-97c5-b8bb40c069c1\",  \"delay_seconds\": 0}"
+ADAPERP_short_bot_stop      = "{  \"action\": \"close_at_market_price_all_and_stop_bot\",  \"message_type\": \"bot\",  \"bot_id\": 7919140,  \"email_token\": \"d22045a7-624e-40c2-97c5-b8bb40c069c1\",  \"delay_seconds\": 0}"
+
+if (LongBuy)
+    strategy.entry(id="L", 
+     direction=strategy.long,
+     alert_message= ADAPERP_long_bot_start
+     )
+if (LongSell)
+    strategy.close(id="L",
+     alert_message= ADAPERP_long_bot_stop
+     )
+
+if (ShortBuy)
+    strategy.entry(id="S",
+     direction=strategy.short,
+     alert_message=ADAPERP_short_bot_start
+     )
+if (ShortSell)
+    strategy.close(id="S",
+     alert_message=ADAPERP_short_bot_stop
+     )
+
+
+ADAPERP_long_bot_start      = "{  \"action\": \"start_bot_and_start_deal\",  \"message_type\": \"bot\",  \"bot_id\": 7919106,  \"email_token\": \"d22045a7-624e-40c2-97c5-b8bb40c069c1\",  \"delay_seconds\": 0}"
+ADAPERP_long_bot_stop       = "{  \"action\": \"close_at_market_price_all_and_stop_bot\",  \"message_type\": \"bot\",  \"bot_id\": 7919106,  \"email_token\": \"d22045a7-624e-40c2-97c5-b8bb40c069c1\",  \"delay_seconds\": 0}"
+ADAPERP_short_bot_start     = "{  \"action\": \"start_bot_and_start_deal\",  \"message_type\": \"bot\",  \"bot_id\": 7919140,  \"email_token\": \"d22045a7-624e-40c2-97c5-b8bb40c069c1\",  \"delay_seconds\": 0}"
+ADAPERP_short_bot_stop      = "{  \"action\": \"close_at_market_price_all_and_stop_bot\",  \"message_type\": \"bot\",  \"bot_id\": 7919140,  \"email_token\": \"d22045a7-624e-40c2-97c5-b8bb40c069c1\",  \"delay_seconds\": 0}"
+
+Long = "{\"passphrase\": \"somelongstring123\",\"ticker\": \"NATGAS\",\"strategy\": {\"order_action\": \"buy\",\"order_contracts\": 0.01,\"market_position\":\"long\",\"tp\": 0.0,\"sl\": 0.0}}"
+Short = "{\"passphrase\": \"somelongstring123\",\"ticker\": \"NATGAS\",\"strategy\": {\"order_action\": \"sell\",\"order_contracts\": 0.01,\"market_position\":\"long\",\"tp\": 0.0,\"sl\": 0.0}}"
+Close = "{\"passphrase\": \"somelongstring123\",\"ticker\": \"NATGAS\",\"strategy\": {\"order_action\": \"close\",\"order_contracts\": 0.01,\"market_position\":\"long\",\"tp\": 0.0,\"sl\": 0.0}}"
+
+// -- Long Deal -->
+if (longStartCondition)
+    strategy.entry(id="L", direction = strategy.long, alert_message = longStartMessage )
+
+if (longStopCondition)
+    strategy.close("L", alert_message = longStopMessage)
+// -- Short Deal -->
+if (shortStartCondition)
+    strategy.entry(id="S", direction = strategy.short, alert_message = shortStartMessage )
+if (shortStopCondition)
+    strategy.close(id="S", alert_message = shortStopMessage )
