@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'tw-webhook'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BAD961BA50F64A1C9045AE45A5BC36D2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_47F8892E342A4EC4BC5F63BF701B86E6 }}
