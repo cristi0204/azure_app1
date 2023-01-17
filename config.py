@@ -1,3 +1,4 @@
+# simulated accounts for dev  phase only. check azure app application settings for prod env
 BINANCE_WEBHOOK_PASSPHRASE = "somelongstring123"
 BINANCE_API_KEY = 'ioQDXsEA3lfdXbiJ83s29SqheaHtgRWGTht8cFhSukFQ2n58z5G4QyuZy1ez9O3j'
 BINANCE_API_SECRET = 'TGBjNd2DhzytIcAlBspuiNXYMO4AqwYuaWcl4w7eyGRMsX0RqCFCjNkG5o96Pw0N'
