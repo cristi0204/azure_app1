@@ -157,7 +157,8 @@ def xtborder():
     side = data['strategy']['order_action'].upper()
     order_action = data['strategy']['order_action'].upper()
     position = data['strategy']['market_position']
-    quantity = data['strategy']['order_contracts']
+    #quantity = data['strategy']['order_contracts']
+    quantity = "0.01"
     tp = data['strategy']['tp']
     sl = data['strategy']['sl']
     #print (order_action)
