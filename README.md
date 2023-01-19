@@ -41,6 +41,12 @@ https://github.com/lth-elm/TradingView-Webhook-Trading-Bot
 https://github.com/IAMtheIAM/autoview-tradingview-chrome-docker-bot
 
 
+## xtb
+https://github.com/OlafSk/pyXTB
+https://github.com/federico123579/XTBApi
+http://developers.xstore.pro/api/wrappers/2.5.0
+
+
 ## binance
 
 git repo

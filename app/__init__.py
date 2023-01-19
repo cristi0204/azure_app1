@@ -157,10 +157,11 @@ def xtborder():
     side = data['strategy']['order_action'].upper()
     order_action = data['strategy']['order_action'].upper()
     position = data['strategy']['market_position']
-    #quantity = data['strategy']['order_contracts']
-    quantity = "0.01"
+    quantity = data['strategy']['order_contracts']
+    #quantity = "0.01"
     tp = data['strategy']['tp']
     sl = data['strategy']['sl']
+    #print('Order data - Symbol:  ' + str(symbol) + '  Action ' + str(order_action) + '  Quantity ' + str(quantity))
     #print (order_action)
     if order_action == "BUY":
         xtborder = pyxtb.buy_symbol(symbol,quantity) #,tp,sl) 
@@ -169,7 +170,7 @@ def xtborder():
         return xtborder
         
     elif order_action == "SELL":
-        xtborder = pyxtb.sell_symbol(symbol,quantity,tp,sl)
+        xtborder = pyxtb.sell_symbol(symbol,quantity) #,tp,sl)
         #result = json.loads(xtborder)
         return xtborder
     elif order_action: 
@@ -184,3 +185,19 @@ def xtborder():
     #print(request.data)
     # print(f"sending order {order_type} - {side} {quantity} {symbol}")
 
+###########  XTB Status   ########
+@app.route('/xtbgetsymbol', methods=['POST'])
+def xtbgetsymbol():
+    data = json.loads(request.data)
+    pyxtb = trader()
+    pyxtb.login(id=config.XTB_USER_ID,password=config.XTB_USER_PASS)    
+
+    if data['passphrase'] != config.XTB_WEBHOOK_PASSPHRASE:
+        return {
+            "code": "error",
+            "message": "Invalid peer"
+        }
+
+    symbol = data['ticker']
+    symboldata = pyxtb.get_symbol_data(symbol)
+    return symboldata
